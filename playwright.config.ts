@@ -35,6 +35,7 @@ export default defineConfig({
 
   /* Configure projects */
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     /* API tests (Swagger Petstore) — run once, no browser, own baseURL. */
     {
       name: 'api',
@@ -49,18 +50,21 @@ export default defineConfig({
       name: 'chromium',
       testIgnore: '**/api/**',
       use: { ...devices['Desktop Chrome'] },
+          dependencies: ['setup'],
     },
 
     {
       name: 'firefox',
       testIgnore: '**/api/**',
       use: { ...devices['Desktop Firefox'] },
+          dependencies: ['setup'],
     },
 
     {
       name: 'webkit',
       testIgnore: '**/api/**',
       use: { ...devices['Desktop Safari'] },
+          dependencies: ['setup'],
     },
 
     /* Test against mobile viewports. */
