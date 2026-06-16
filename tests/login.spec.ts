@@ -1,19 +1,11 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from './pages/LoginPage';
+import { test, expect } from './fixtures/LoginFixture';
 
-test.beforeEach(async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
-});
-
-test('login', async ({ page }) => {
-  const loginPage = new LoginPage(page);
+test('login', async ({ loginPage }) => {
   await loginPage.login('standard_user', 'secret_sauce');
-  await expect(page.getByTestId('title')).toBeVisible();
+  await expect(loginPage.page.getByTestId('title')).toBeVisible();
 });
 
-test('non valid login', async ({ page }) => {
-  const loginPage = new LoginPage(page);
+test('non valid login', async ({ loginPage }) => {
   await loginPage.login('standard_user', 'wrong_password');
   await expect(loginPage.error).toBeVisible();
   await expect(loginPage.error).toContainText('do not match');
