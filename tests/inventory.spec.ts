@@ -6,7 +6,6 @@ test.use({ storageState: 'playwright/.auth/user.json' });
 test('add item to cart', async ({ page }) => {
   const marketPage = new MarketPage(page);
   await page.goto('https://www.saucedemo.com/inventory.html');
-  await marketPage.addBackpackToCart();
-  await expect(marketPage.shoppingCartBadge).toHaveText('1');
-
+  await marketPage.addItemToCart('Sauce Labs Backpack');
+  await expect(marketPage.cartBadge).toHaveText('1');
 });
